@@ -1,6 +1,7 @@
+<body>
+<h2>User info</h2>
+<%= attachment_image_tag(user, :profile_image, fallback: "no_image.jpg", size: "100x100") %>
 <table class="table">
-		<tr><%= attachment_image_tag(user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg") %></tr>
-
 		<tr>
 			<th>name</th>
 			<th><%= user.name %></th>
@@ -13,5 +14,6 @@
 </table>
 
 <div class="row">
-	<%= link_to '',edit_user_path(user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
+	<%= link_to '',edit_user_path(current_user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
 </div>
+</body>
