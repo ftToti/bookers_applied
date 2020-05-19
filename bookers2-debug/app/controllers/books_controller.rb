@@ -1,9 +1,11 @@
 class BooksController < ApplicationController
   before_action :authenticate_user!
+  before_action :baria_book, only: [:edit]
 
   def show
   	@book = Book.find(params[:id])
     @user = @book.user
+    @bookn = Book.new
   end
 
   def index
@@ -52,4 +54,10 @@ class BooksController < ApplicationController
   	params.require(:book).permit(:title, :body)
   end
 
+  def baria_book
+    book = Book.find(params[:id])
+    unless book.user_id == current_user.id
+      redirect_to books_path
+    end
+  end
 end
