@@ -1,0 +1,35 @@
+<body>
+<div class="row">
+<h2>User info</h2>
+<%= attachment_image_tag user, :profile_image, fallback: "no_image.jpg", size: "100x100" %>
+<table class="table">
+		<tr>
+			<th>name</th>
+			<th><%= user.name %></th>
+		</tr>
+
+		<tr>
+			<th>introduction</th>
+			<th><%= user.introduction %></th>
+		</tr>
+		<tr>
+			<th>follows</th>
+			<th><%= user.follower.count %></th>
+		</tr>
+		<tr>
+			<th>followers</th>
+			<th><%= user.followed.count %></th>
+		</tr>
+</table>
+<% unless user == current_user %>
+<% if current_user.following?(user) %>
+	<td><%= link_to 'Unfollow', unfollow_path(user.id), class: "btn btn-danger btn-block", method: :post %></td>
+<% else %>
+	<td><%= link_to 'Follow', follow_path(user.id), class: "btn btn-primary btn-block", method: :post %></td>
+<% end %>
+<% else %>
+<%= link_to '',edit_user_path(current_user), class: "col-xs-12 btn btn-default glyphicon glyphicon-wrench edit_user_#{user.id}" %>
+<% end %>
+<%= link_to 'List of followers', user_follow_path(user), class: "col-xs-12 btn btn-success" %>
+</div>
+</body>
